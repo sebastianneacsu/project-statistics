@@ -1,0 +1,80 @@
+  <html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    //load the json file with values async  
+    $.ajaxSetup({
+      async: false
+    });
+    var jsonData= (function() {
+      var result;
+      $.getJSON('data.json', {}, function(data){
+        result = data;
+      });
+      return result;
+    })();
+
+    // Load Charts and the corechart and barchart packages.
+    google.charts.load('current', {'packages':['corechart', 'table']});
+    // Draw the pie chart and bar chart when Charts is loaded.
+    google.charts.setOnLoadCallback(drawBugsChart);
+
+    function drawBugsChart() {
+
+      console.log(JSON.stringify(jsonData));
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Status');
+      data.addColumn('number', 'Count');
+      data.addRows([
+        ['OPEN', jsonData.bugs.open],
+        ['IN PROGRESS', jsonData.bugs.in_progress],
+        ['RESOLVED', jsonData.bugs.resolved],
+        ['CLOSED', jsonData.bugs.closed],
+        ['DRAFT', jsonData.bugs.draft],
+        ['NEED INFO', jsonData.bugs.need_info]
+        ]);
+
+      var piechart_options = {title:'Bug Statistics by Status',
+      is3D:true,
+      width:800,
+      height:600
+    };
+    var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+    piechart.draw(data, piechart_options);
+
+    var barchart_options = {title:'Bug Statistics by Status',
+    width:800,
+    height:600,
+    legend: 'none'};
+    var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+    barchart.draw(data, barchart_options);
+
+    var table_options = {title:'Bug Statistics by Status',
+    width:800,
+    height:200,
+    legend: 'none',
+    sortColumn: 1,
+    sortAscending: false
+  };
+  var tabel = new google.visualization.Table(document.getElementById('table_div'));
+  tabel.draw(data, table_options);
+
+  document.getElementById("open_bugs_div").innerHTML = jsonData.bugs.open + " Open Bugs";
+}
+</script>
+<body>
+  <!--Table and divs that hold the pie charts-->
+  <table class="columns">
+    <tr>
+      <td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
+      <td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
+    </tr>
+    <td><div id="table_div" style="border: 1px solid #ccc"></div></td>
+    <td><div id="open_bugs_div"></div></td>
+  </table>
+</body>
+</html>

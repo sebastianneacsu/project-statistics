@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example of Bootstrap 2 Unequal Column Layout for Tablets and Desktops</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script id="data" type="application/json" src="data.json"></script>
+<style type="text/css">
+  .row > div{
+        margin-bottom: 15px;
+    }
+  .header{
+        min-height: 90px;
+    }
+    .footer{
+        min-height: 60px;
+    }
+    .header, .footer{
+        background: #2f2f2f;
+    }
+    .content{
+        min-height: 300px;
+    }
+    .sidebar-top{
+        min-height: 140px;
+    }
+    .sidebar-bottom{
+        min-height: 145px;
+        margin-bottom: -15px;
+        background: red;
+    }
+</style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+/*     var my_json;
+      $.getJSON("data.json", function(json) {
+     my_json = json;
+      console.log("jason = "+ my_json);
+      });
+*/
+
+      var data = JSON.parse($("#data").html());
+      console.log("gfdgfdsgdsgfdsg = "+ data);
+
+
+      // Load Charts and the corechart and barchart packages.
+      google.charts.load('current', {'packages':['corechart', 'table']});
+      // Draw the pie chart and bar chart when Charts is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Status');
+        data.addColumn('number', 'Count');
+        data.addRows([
+          ['OPEN', 151],
+          ['IN PROGRESS', 16],
+          ['RESOLVED', 84],
+          ['CLOSED', 1756],
+          ['DRAFT', 558],
+          ['NEED INFO', 1]
+        ]);
+
+        var piechart_options = {title:'Bug Statistics by Status',
+                       is3D:true,
+                       width:800,
+                       height:600
+                       };
+        var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+        piechart.draw(data, piechart_options);
+
+/*        var barchart_options = {title:'Bug Statistics by Status',
+                       width:400,
+                       height:300,
+                       legend: 'none'};
+        var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+        barchart.draw(data, barchart_options);*/
+
+        var table_options = {title:'Bug Statistics by Status',
+                       width:400,
+                       height:300,
+                       legend: 'none',
+                       sortColumn: 1,
+                       sortAscending: false
+                    };
+        var tabel = new google.visualization.Table(document.getElementById('table_div'));
+        tabel.draw(data, table_options);
+      }
+</script>
+</head>
+<body>
+  <!-- Open the output in a new blank tab (Click the arrow next to "Show Output" button) and resize the browser window to understand how the Bootstrap responsive grid system works. -->
+  <div class="container">
+      <div class="row">
+            <div class="col-sm-12">
+                <div class="header"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="content">
+                  <div id="piechart_div" style="border: 1px solid #ccc">
+                     </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="sidebar-top">
+<!--                           <div id="barchart_div" style="border: 1px solid #ccc">
+                          </div> -->
+                          <div id="table_div" style="border: 1px solid #ccc">
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="sidebar-bottom">
+<!--                           <div id="table_div" style="border: 1px solid #ccc">
+                          </div> -->
+                          <h1>70</h1>
+                          <p>open bugs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="footer"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>                                   

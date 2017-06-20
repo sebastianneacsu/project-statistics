@@ -20,18 +20,18 @@ h1 {
 	padding-left: 30px;
 }
 .number{
-	font-size: 250px;
+	font-size: 170px;
     height:200px;
     color:white;
 }
 .description{
-	font-size:50px;  
-    margin-top: -130px;
+	font-size:40px;  
+    margin-top: -125px;
     color:white;
 }
 .tile{
-	width:500px;
-	height:400px;
+	width:400px;
+	height:300px;
 	margin-left: 20px;
 	text-align: center;
 }

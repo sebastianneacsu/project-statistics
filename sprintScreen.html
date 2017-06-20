@@ -1,0 +1,65 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+  //load the json file with values async  
+  $.ajaxSetup({
+    async: false
+  });
+  var jsonData= (function() {
+    var result;
+    $.getJSON('data.json', {}, function(data){
+      result = data;
+    });
+    return result;
+  })();
+
+  window.onload = function() {
+  //set the values to the respective tiles  
+    document.getElementById("stories_closed").innerHTML = jsonData.activeSprint.storiesClosed;
+    document.getElementById("remaining_stories").innerHTML = jsonData.activeSprint.storiesToDo;
+    document.getElementById("all_stories").innerHTML = jsonData.stories.open;
+    document.getElementById("bugs_found").innerHTML = jsonData.activeSprint.bugsCreated;
+    document.getElementById("bugs_resolved").innerHTML = jsonData.activeSprint.bugsClosed;
+    document.getElementById("tests_created").innerHTML = jsonData.activeSprint.testCasesCreated;
+  }
+
+</script>
+<body>
+<h1> Sprint 26 </h1>
+  <!--Table and divs that hold the pie charts-->
+  <table class="columns">
+    <tr>
+      <td><div class="tile" style="background-color: #03B5AA;">
+       <p id="stories_closed" class="number"></p>
+       <p class="description" style="background-color: #000000;">Stories Done</p>
+     </div></td>
+     <td><div class="tile" style="background-color: #008148;">
+       <p id="remaining_stories" class="number">10</p>
+       <p class="description" style="background-color: #000000;">Stories To Do</p>
+     </div></td>
+     <td><div class="tile" style="background-color: #EE4266;">
+       <p id="all_stories" class="number">10</p>
+       <p class="description" style="background-color: #000000;">All Remaining Stories</p>
+     </div></td>
+   </tr>
+   <tr>
+    <td><div class="tile" style="background-color: #EE4266;">
+     <p id="bugs_found" class="number">10</p>
+     <p class="description" style="background-color: #000000;">Bugs found</p>
+   </div></td>
+   <td><div class="tile" style="background-color: #06D6A0;">
+     <p id="bugs_resolved" class="number">10</p>
+     <p class="description" style="background-color: #000000;">Bugs fixed</p>
+   </div></td>
+   <td><div class="tile" style="background-color: #29335C;">
+     <p id="tests_created" class="number">10</p>
+     <p class="description" style="background-color: #000000;">Tests created</p>
+   </div></td>
+ </tr>
+</table> 
+</body>
+</html>

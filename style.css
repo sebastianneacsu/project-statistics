@@ -11,7 +11,27 @@ body {
     display: table-cell;
     vertical-align: middle;
 }
+
+h1 {
+	 font-size:50px;
+}
 #open_bugs_div {
 	font-size:100px;  
 	padding-left: 30px;
+}
+.number{
+	font-size: 250px;
+    height:200px;
+    color:white;
+}
+.description{
+	font-size:50px;  
+    margin-top: -130px;
+    color:white;
+}
+.tile{
+	width:500px;
+	height:400px;
+	margin-left: 20px;
+	text-align: center;
 }
